@@ -1,0 +1,111 @@
+namespace Interface_2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+                //access all the methods 
+                Class1 obj = new Class1();
+                obj.Display();
+                obj.Function1();
+                obj.Function2();
+                obj.Function3();
+                Console.WriteLine("");
+
+
+                //access on interface methods Ione
+                Ione Iobj;
+                Iobj = obj;
+                Iobj.Function1();//methods 1 
+                                 //method 2 
+                ((Ione)obj).Function2();//-> accessiong by implicit reference
+                                        //method 3
+                (obj as Ione).Function3();
+
+                // we cannot access directly Display() of class1
+                //I obj.Display();
+                Console.WriteLine();
+
+                //access interface Itwo methods here 
+                Itwo IIobj;
+                IIobj = obj;
+                IIobj.Function3();
+                IIobj.Function4();
+                IIobj.Function5();
+                
+                Console.WriteLine();
+
+                (obj as Itwo).Function3();//-> accessing by implicit reference
+
+        }
+        }
+        public interface Ione
+        {
+            void Function1();
+            void Function2();
+            void Function3();
+        }
+
+        public interface Itwo
+        {
+            void Function4();
+            void Function5();
+            void Function3();
+
+
+        }
+        public class Class1 : Ione,Itwo
+        {
+            //Class method
+            public void Display()
+            {
+                Console.WriteLine("Its a Class1 -> Display() ");
+            }
+
+            // interface method Ione
+            public void Function1()
+            {
+                Console.WriteLine("Its Ione Function1");
+            }
+
+            // interface method Ione
+            public void Function2()
+            {
+                Console.WriteLine("Its Ione Function2");
+            }
+
+            // interface method Ione
+            public void Function3()
+            {
+                Console.WriteLine("Its Ione Function3");
+            }
+            
+
+            //interace method Itwo
+            public void Function4()
+            {
+                Console.WriteLine("Its Itwo Fucntion4");
+            }
+
+            //interface method Itwo
+            public void Function5()
+            {
+                Console.WriteLine("Its Itwo Function5");
+            }
+
+            //this will give error asd same method is used in Ione class 
+            //public void Function3()
+            //{
+            //    Console.WriteLine("Its Itwo Function3");
+            //}
+
+
+            //So to use Function3 of Itwo me make it as private
+            void Itwo.Function3()
+            {
+                Console.WriteLine("Its Itwo Function3");
+            }
+        }
+    }
+
+

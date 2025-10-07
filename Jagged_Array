@@ -1,0 +1,28 @@
+namespace Jagged_Array
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the Number of batches");
+            int size = int.Parse(Console.ReadLine()!);
+            int[][] arr=new int[size][];
+
+            for(int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    Console.WriteLine("Enter number of students");
+                    arr[i][j] = int.Parse(Console.ReadLine()!);
+                }
+            }
+            for(int i = 0; i < arr.Length; i++)
+            {
+                for(int j=0;j < arr[i].Length; j++)
+                {
+                    Console.WriteLine($"arr{arr[i][j]}");
+                }
+            }
+        }
+    }
+}

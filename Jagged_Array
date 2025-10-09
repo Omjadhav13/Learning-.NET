@@ -4,24 +4,35 @@ namespace Jagged_Array
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the Number of batches");
-            int size = int.Parse(Console.ReadLine()!);
-            int[][] arr=new int[size][];
+            Console.Write("Enter number of Batches: ");
+            int rows = int.Parse(Console.ReadLine()!);
 
-            for(int i = 0; i < arr.Length; i++)
+            int[][] jagged = new int [rows][];
+
+            for(int i =0; i<rows; i++)
             {
-                for (int j = 0; j < arr.Length; j++)
+                Console.Write($"Enter number of element in students {i + 1}: ");
+                int cols = int.Parse(Console.ReadLine()!);
+
+                jagged[i] = new int[cols];
+
+                Console.Write($"Enter {cols} elements for marks {i + 1}:");
+                for (int j = 0; j < cols; j++)
                 {
-                    Console.WriteLine("Enter number of students");
-                    arr[i][j] = int.Parse(Console.ReadLine()!);
+                    jagged[i][j] = int.Parse(Console.ReadLine()!);
                 }
+
             }
-            for(int i = 0; i < arr.Length; i++)
+
+            Console.WriteLine("\nJagged Array Elements:");
+            for (int i = 0; i < jagged.Length; i++)
             {
-                for(int j=0;j < arr[i].Length; j++)
+                Console.Write($"Row {i + 1}: ");
+                for (int j = 0; j < jagged[i].Length; j++)
                 {
-                    Console.WriteLine($"arr{arr[i][j]}");
+                    Console.Write(jagged[i][j] + " ");
                 }
+                Console.WriteLine();
             }
         }
     }

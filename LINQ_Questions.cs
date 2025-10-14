@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -205,12 +206,12 @@ namespace LinqAssignment
             Console.WriteLine("23. Find average marks per city");
 
             var pc = from ci in students
-                    group ci by ci.City into cityGroup
-                    select new { cityGroup,avg= cityGroup.Average(c=>c.Marks)};
-                   
+                     group ci by ci.City into cityGroup
+                     select new { cityGroup, avg = cityGroup.Average(c => c.Marks) };
+
 
             foreach (var ci in pc)
-            {   
+            {
                 Console.WriteLine($"{ci.cityGroup.Key} {ci.avg}");
             }
 
@@ -228,16 +229,16 @@ namespace LinqAssignment
             {
                 Console.WriteLine($"{item.city.Key} : {item.max}");
             }
-            
+
             Console.WriteLine();
             Console.WriteLine("25. Find the city with the most students");
             var ms = (from sis in students
-                                group sis by sis.City into cityGroup
-                                select new
-                                {
-                                    City = cityGroup.Key,
-                                    Count = cityGroup.Count()
-                                })
+                      group sis by sis.City into cityGroup
+                      select new
+                      {
+                          City = cityGroup.Key,
+                          Count = cityGroup.Count()
+                      })
                                 .OrderByDescending(x => x.Count)
                                 .FirstOrDefault();
 
@@ -280,7 +281,7 @@ namespace LinqAssignment
             {
                 Console.WriteLine($"{item.Gender} : {item.Count}");
             }
-            
+
 
             Console.WriteLine();
             Console.WriteLine("28. Group students by age and list names under each age");
@@ -312,10 +313,164 @@ namespace LinqAssignment
 
             Console.WriteLine();
             Console.WriteLine("30. Find total marks of all students combined.");
-            var stss =  students.Sum(s=>s.Marks);
-                       
+            var stss = students.Sum(s => s.Marks);
 
             Console.WriteLine($"{stss} ");
+
+            Console.WriteLine();
+            Console.WriteLine("31. Display names and marks of students ordered first by city, then by marks descending.");
+            var ds = from so in students orderby so.City orderby so.Marks descending select new { so.Name, so.Marks };
+            foreach (var item in ds)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("32. Select only Name and City into an anonymous object");
+            var dsff = students.Select(s => new { s.Name, s.Marks });
+            foreach (var item in dsff)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("33. Find students whose names contain a");
+            var dsf = students.Where(s => s.Name.Contains("a")).Select(s => s.Name);
+            foreach (var item in dsf)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("34. Find students with even Ids");
+            var dsof = students.Where(s => s.Id % 2 == 0).Select(s => s);
+            foreach (var item in dsof)
+            {
+                Console.WriteLine($"{item.Id} {item.Name}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("35. Skip first 3 students and display the rest");
+            var dsf1 = students.Select(s => s).Skip(3);
+            foreach (var item in dsf1)
+            {
+                Console.WriteLine($"{item.Id} {item.Name}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("36. Take first 5 students only");
+            var dsf5 = students.Select(s => s).Take(5);
+            foreach (var item in dsf5)
+            {
+                Console.WriteLine($"{item.Id} {item.Name}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("37. Find second highest marks");
+            var dsfsh = students.Where(s => s.Marks > 60).Select(s => s);
+            foreach (var item in dsfsh)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Marks}");
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("38. Find students who have marks between 70 and 90.");
+            var b97 = students.Where(s => s.Marks > 70 && s.Marks < 90).Select(s => s);
+            foreach (var item in b97)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Marks}");
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("39. Find students whose age is not 21.");
+            var b21 = students.Where(s => s.Age != 21).Select(s => s);
+            foreach (var item in b21)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("40. Display all names separated by commas as a single string");
+            var b40 = students.Where(s => s.Age != 21).Select(s => s);
+            foreach (var item in b40)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("41. Check if all students are above 18 years of age.\r\n");
+            bool b18 = students.All(s => s.Age > 18);
+            Console.WriteLine($"{b18}");
+
+            Console.WriteLine();
+            Console.WriteLine("  42. Find students grouped by gender and city together.");
+            var gc = students.GroupBy(s => new { s.Gender, s.City });
+
+            foreach (var group in gc)
+            {
+                Console.WriteLine($"Gender: {group.Key.Gender}, City: {group.Key.City}");
+
+                foreach (var student in group)
+                {
+                    Console.WriteLine($"\tId: {student.Id}, Name: {student.Name}, Age: {student.Age}");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("44. Check if there is any student from Hyderabad.\r\n");
+            bool b400 = students.All(s => s.City =="Hyderabad");
+            Console.WriteLine($"{b400}");
+
+            //Console.WriteLine();
+            //Console.WriteLine("45. Find average marks of male students only");
+            //double mks = students.Where(s => s.Gender == "Male").Select(s => s.Marks).Average();
+            //foreach (var item in mks)
+            //{
+            //    Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            //}
+
+            Console.WriteLine();
+            Console.WriteLine("46. Find the youngest student");
+            var mks = students.OrderBy(s => s.Age).Take(1);
+            foreach (var item in mks)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(" 47. Find the oldest student.");
+            var mko = students.OrderByDescending(s => s.Age).Take(1);
+            foreach (var item in mko)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("48. Order students by marks descending and select top 1");
+            var mkto = students.OrderByDescending(s => s.Marks).Take(1);
+            foreach (var item in mkto)
+            {
+                Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            }
+
+            //Console.WriteLine();
+            //Console.WriteLine("49. Display students in alphabetical order of city, then name.");
+            //var mko = students.OrderByDescending(s => s.Age).Take(1);
+            //foreach (var item in mko)
+            //{
+            //    Console.WriteLine($"{item.Id} {item.Name} {item.Age}");
+            //}
+
+            Console.WriteLine();
+            Console.WriteLine("50.Find the total marks of all female students..");
+            var tos = students.Where(a=>a.Gender=="Female").Sum(s => s.Marks);
+          
+                Console.WriteLine($"{tos}");
+          
+
         }
 
     }

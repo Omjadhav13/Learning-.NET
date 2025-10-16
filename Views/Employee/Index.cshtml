@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@model MyWebApp.Models.Employee;
+<h1>Enter Employee Details</h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(s => s.EmpID)
+        @Html.TextBoxFor(test => test.EmpID)
+        @Html.ValidationMessageFor(m => m.EmpID)
+    </div>
+    <div>
+        @Html.LabelFor(s => s.Name)
+        @Html.TextBoxFor(test => test.Name)
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div>
+        @Html.LabelFor(s => s.Age)
+        @Html.TextBoxFor(test => test.Age)
+        @Html.ValidationMessageFor(m => m.Age)
+    </div>
+    <div>
+        @Html.LabelFor(s => s.DeptId)
+        @Html.TextBoxFor(test => test.DeptId)
+        @Html.ValidationMessageFor(m => m.DeptId)
+    </div>
+    <button type="submit">Submit</button>
+}
+
+
